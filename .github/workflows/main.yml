@@ -1,26 +1,25 @@
-name: Deploy to EC2
+# Workflowの名前。任意に設定可能
+name: EC2 auto deploy
 
+# アクションが実行されるタイミングを設定。今回はmainブランチにpushされた時。
 on:
-  pull_request:
-    branches:
-      - main
-    types: [closed]
-
+ push:
+   branches:
+     - main
+ 
+#実行される処理
 jobs:
-  deployment:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+ build:
+   # 実行環境の指定
+   runs-on: ubuntu-latest
+   steps:
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Deploy to EC2
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST_NAME }}
-        username: ${{ secrets.USER_NAME }}
-        key: ${{ secrets.PRIVATE_KEY }}
-        script: |
-          cd /opt/twitter-api
-          git pull origin main
+     # デプロイする
+     - name: Deploy
+       run: |
+         # SSH接続して、git pullする
+         echo "${{ secrets.PRIVATE_KEY }}" > private_key
+         chmod 600 private_key
+         ssh -oStrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_NAME }} -i private_key << 'EOF'
+         cd /opt/twitter-api
+         git pull origin main
