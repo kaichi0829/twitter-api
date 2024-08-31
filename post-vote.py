@@ -18,7 +18,7 @@ client = tweepy.Client(
     access_token=at, access_token_secret=ats
 )
 
-with open('/opt/twitter/gemini.txt', 'r', encoding='utf-8') as f:
+with open('/opt/twitter-api/post-vote.txt', 'r', encoding='utf-8') as f:
     content = f.read()  # ファイル全体を文字列として読み込む
 
 print(content)  # 読み込んだ内容を出力
