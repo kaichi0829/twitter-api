@@ -24,7 +24,6 @@ with open('/opt/twitter-api/post-vote.txt', 'r', encoding='utf-8') as f:
 print(content)  # 読み込んだ内容を出力
 
 # 投票内容
-poll_question = "あなたはどのプログラミング言語が好きですか？"
 options = ["はい", "いいえ"]
 duration = 24  # 投票の有効期限（時間）
 
