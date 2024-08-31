@@ -18,26 +18,21 @@ client = tweepy.Client(
     access_token=at, access_token_secret=ats
 )
 
-#with open('/opt/twitter/gemini.txt', 'r', encoding='utf-8') as f:
-#    content = f.read()  # ファイル全体を文字列として読み込む
+with open('/opt/twitter/gemini.txt', 'r', encoding='utf-8') as f:
+    content = f.read()  # ファイル全体を文字列として読み込む
 
-#print(content)  # 読み込んだ内容を出力
+print(content)  # 読み込んだ内容を出力
 
 # 投票内容
-#poll_question = "あなたはどのプログラミング言語が好きですか？"
-#options = ["はい", "いいえ"]
-#duration = 24  # 投票の有効期限（時間）
+poll_question = "あなたはどのプログラミング言語が好きですか？"
+options = ["はい", "いいえ"]
+duration = 24  # 投票の有効期限（時間）
 
 # 投票を投稿
-#response = client.create_tweet(
-#    text=content,
-#    poll_options=options,
-##    poll_duration_minutes=duration * 60  # 分単位で指定
-#)
+response = client.create_tweet(
+    text=content,
+    poll_options=options,
+    poll_duration_minutes=duration * 60  # 分単位で指定
+)
 
-#print("投票が投稿されました:", response.data['id'])
-
-# 今日の日付を取得
-today = datetime.now()
-tweet_text = f"今は {today} です！"
-client.create_tweet(text=tweet_text)
+print("投票が投稿されました:", response.data['id'])
