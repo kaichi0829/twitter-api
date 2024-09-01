@@ -7,3 +7,5 @@
 * google-generativeai
   * https://ai.google.dev/gemini-api/docs/get-started/tutorial?lang=python&hl=ja
 * tweepy
+* github actions
+  * https://zenn.dev/anti_15/articles/4d2aca7df93457
