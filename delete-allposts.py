@@ -1,23 +1,28 @@
 import tweepy
+import requests
+from datetime import datetime
 
-# Twitter API認証情報
-consumer_key = 'DN4aq16BV1KjlbOkYz8Is8hEN'
-consumer_secret = 'uN3lZRdk6fBJBVSVSQ5H73qroQgOARHPGQKNgguLnV6ny2UqFG'
-access_token = '1816077751809630215-jqR6ikbR84com7FMlDOz6ThnhNgg2W'
-access_token_secret = 'pEWG2LSDOk9fuEp2F302MoHpL0Kl6RnCc3gMmSoKffi0c'
+# Consumer Keys
+ck = 'DN4aq16BV1KjlbOkYz8Is8hEN' #API KEYが入ります
+cs = 'uN3lZRdk6fBJBVSVSQ5H73qroQgOARHPGQKNgguLnV6ny2UqFG' #API KEY SECRETが入ります
 
-# Twitter APIの認証
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+# Authentication Tokens
+bt = 'AAAAAAAAAAAAAAAAAAAAABEKvAEAAAAA0g%2FWGtj8u%2B%2BTnIfPeHUR0O54ZLM%3DVqqdyoYilbieG2IhcPjOy4uA62cGJUhnxRQcL7dHdhPu7Fo0yR' #Bearer Tokenが入ります
+at = '1816077751809630215-jqR6ikbR84com7FMlDOz6ThnhNgg2W' #ACCESS TOKENが入ります
+ats = 'pEWG2LSDOk9fuEp2F302MoHpL0Kl6RnCc3gMmSoKffi0c' #ACCESS TOKEN SECRETが入ります
 
-# APIインスタンスの作成
-api = tweepy.API(auth)
+# 認証
+client = tweepy.Client(
+    bearer_token=bt,
+    consumer_key=ck, consumer_secret=cs,
+    access_token=at, access_token_secret=ats
+)
 
 # 最新の5件のツイートを取得して削除
-tweets = api.user_timeline(count=5)
+tweets = client.user_timeline(count=5)
 for tweet in tweets:
     print(f"Deleting tweet: {tweet.text}")
-    api.destroy_status(tweet.id)
+    client.destroy_status(tweet.id)
     print("Tweet deleted successfully")
 
 print("Deletion of the 5 most recent tweets completed.")
