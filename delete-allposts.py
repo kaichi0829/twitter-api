@@ -1,18 +1,22 @@
 import tweepy
+import requests
+from datetime import datetime
 
-# 1. 認証情報を設定
-api_key = 'DN4aq16BV1KjlbOkYz8Is8hEN'
-api_secret_key = 'uN3lZRdk6fBJBVSVSQ5H73qroQgOARHPGQKNgguLnV6ny2UqFG'
-access_token = '1816077751809630215-jqR6ikbR84com7FMlDOz6ThnhNgg2W'
-access_token_secret = 'pEWG2LSDOk9fuEp2F302MoHpL0Kl6RnCc3gMmSoKffi0c'
-bearer_token = 'AAAAAAAAAAAAAAAAAAAAABEKvAEAAAAA0g%2FWGtj8u%2B%2BTnIfPeHUR0O54ZLM%3DVqqdyoYilbieG2IhcPjOy4uA62cGJUhnxRQcL7dHdhPu7Fo0yR'  # v2ではbearer_tokenが必要
+# Consumer Keys
+ck = 'DN4aq16BV1KjlbOkYz8Is8hEN' #API KEYが入ります
+cs = 'uN3lZRdk6fBJBVSVSQ5H73qroQgOARHPGQKNgguLnV6ny2UqFG' #API KEY SECRETが入ります
 
-# 2. クライアントのセットアップ（v2）
-client = tweepy.Client(bearer_token=bearer_token, 
-                       consumer_key=api_key, 
-                       consumer_secret=api_secret_key,
-                       access_token=access_token, 
-                       access_token_secret=access_token_secret)
+# Authentication Tokens
+bt = 'AAAAAAAAAAAAAAAAAAAAABEKvAEAAAAA0g%2FWGtj8u%2B%2BTnIfPeHUR0O54ZLM%3DVqqdyoYilbieG2IhcPjOy4uA62cGJUhnxRQcL7dHdhPu7Fo0yR' #Bearer Tokenが入ります
+at = '1816077751809630215-jqR6ikbR84com7FMlDOz6ThnhNgg2W' #ACCESS TOKENが入ります
+ats = 'pEWG2LSDOk9fuEp2F302MoHpL0Kl6RnCc3gMmSoKffi0c' #ACCESS TOKEN SECRETが入ります
+
+# 認証
+client = tweepy.Client(
+    bearer_token=bt,
+    consumer_key=ck, consumer_secret=cs,
+    access_token=at, access_token_secret=ats
+)
 
 # 3. ユーザーIDを取得（usernameから）
 username = 'X9446833383164'  # 削除したいツイートのユーザー名
