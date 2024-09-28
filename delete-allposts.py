@@ -15,7 +15,7 @@ client = tweepy.Client(bearer_token=bearer_token,
                        access_token_secret=access_token_secret)
 
 # 3. ユーザーIDを取得（usernameから）
-username = 'X民意'  # 削除したいツイートのユーザー名
+username = 'X9446833383164'  # 削除したいツイートのユーザー名
 user = client.get_user(username=username)
 user_id = user.data.id
 
