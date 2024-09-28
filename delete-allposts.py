@@ -8,33 +8,25 @@ API_SECRET_KEY = 'uN3lZRdk6fBJBVSVSQ5H73qroQgOARHPGQKNgguLnV6ny2UqFG'
 ACCESS_TOKEN = '1816077751809630215-jqR6ikbR84com7FMlDOz6ThnhNgg2W'
 ACCESS_TOKEN_SECRET = 'pEWG2LSDOk9fuEp2F302MoHpL0Kl6RnCc3gMmSoKffi0c'
 
-# OAuth認証
-auth = OAuth1(API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+# Twitter API認証
+auth = tweepy.OAuthHandler(API_KEY, API_SECRET)
+auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-# アーカイブデータからツイートIDを抽出する関数
-def extract_tweet_ids_from_archive(archive_file_path):
-    tweet_ids = []
-    with open(archive_file_path, 'r', encoding='utf-8') as file:
-        data = file.read()
-        data = data.replace('window.YTD.tweets.part0 = ', '')
-        tweets_data = json.loads(data)
+# API接続
+api = tweepy.API(auth)
 
-        for tweet in tweets_data:
-            tweet_id = tweet['tweet']['id_str']
-            tweet_ids.append(tweet_id)
-    return tweet_ids
+def delete_all_tweets():
+    # ツイート取得と削除
+    for status in tweepy.Cursor(api.user_timeline).items():
+        try:
+            api.destroy_status(status.id)
+            print(f"Deleted tweet: {status.id}")
+        except tweepy.TweepError as e:
+            print(f"Failed to delete tweet {status.id}: {e}")
+        
+        # API制限を回避するための待機
+        time.sleep(1)
 
-# ツイートを削除する関数
-def delete_tweets(tweet_ids):
-    url_delete_tweet = "https://api.twitter.com/1.1/statuses/destroy/"
-    for tweet_id in tweet_ids:
-        del_response = requests.post(url_delete_tweet + f"{tweet_id}.json", auth=auth)
-        if del_response.status_code == 200:
-            print(f"Deleted tweet ID: {tweet_id}")
-        else:
-            print(f"Failed to delete tweet ID: {tweet_id}, Status Code: {del_response.status_code}")
-
-# 実行
-archive_file_path = 'tweets-sample.js'  # アーカイブファイルのパスを指定
-tweet_ids = extract_tweet_ids_from_archive(archive_file_path)
-delete_tweets(tweet_ids)
+if __name__ == "__main__":
+    delete_all_tweets()
+    print("All tweets have been deleted.")
