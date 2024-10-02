@@ -1,15 +1,20 @@
+from dotenv import load_dotenv
+import os
 import tweepy
 import requests
 from datetime import datetime
 
+# .envファイルを読み込む
+load_dotenv()
+
 # Consumer Keys
-ck = 'DN4aq16BV1KjlbOkYz8Is8hEN' #API KEYが入ります
-cs = 'uN3lZRdk6fBJBVSVSQ5H73qroQgOARHPGQKNgguLnV6ny2UqFG' #API KEY SECRETが入ります
+ck = os.getenv('TWITTER_API_KEY') #API KEYが入ります
+cs = os.getenv('TWITTER_SECRET_API_KEY') #API KEY SECRETが入ります
 
 # Authentication Tokens
-bt = 'AAAAAAAAAAAAAAAAAAAAABEKvAEAAAAA0g%2FWGtj8u%2B%2BTnIfPeHUR0O54ZLM%3DVqqdyoYilbieG2IhcPjOy4uA62cGJUhnxRQcL7dHdhPu7Fo0yR' #Bearer Tokenが入ります
-at = '1816077751809630215-jqR6ikbR84com7FMlDOz6ThnhNgg2W' #ACCESS TOKENが入ります
-ats = 'pEWG2LSDOk9fuEp2F302MoHpL0Kl6RnCc3gMmSoKffi0c' #ACCESS TOKEN SECRETが入ります
+bt = os.getenv('TWITTER_BEARER_TOKEN') #Bearer Tokenが入ります
+at = os.getenv('TWITTER_ACCESS_TOKEN') #ACCESS TOKENが入ります
+ats = os.getenv('TWITTER_SECRET_ACCESS_TOKEN') #ACCESS TOKEN SECRETが入ります
 
 # 認証
 client = tweepy.Client(
