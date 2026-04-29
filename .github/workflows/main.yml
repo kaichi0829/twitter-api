@@ -2,7 +2,7 @@ name: Post X Poll
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # JST 9:00 相当
+    - cron: '0 7 */3 * *'  # JST 9:00 相当
   workflow_dispatch:
 
 jobs:
